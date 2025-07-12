@@ -108,7 +108,8 @@ MERN-TODO-APP/
 | PUT    | /todos/:id  | Update a todo                   |
 | DELETE | /todos/:id  | Delete a todo                   |
 
-## Screenshots<img width="1920" height="1080" alt="Screenshot (585)" src="https://github.com/user-attachments/assets/f7b9e1c8-5578-4382-9e02-db018b33a765" />
+## Screenshots
+<img width="1920" height="1080" alt="Screenshot (585)" src="https://github.com/user-attachments/assets/f7b9e1c8-5578-4382-9e02-db018b33a765" />
 <img width="808" height="811" alt="Screenshot (584)" src="https://github.com/user-attachments/assets/80d477ba-e290-4286-983e-9f2015fd38bc" />
 <img width="1920" height="1080" alt="Screenshot (583)" src="https://github.com/user-attachments/assets/9c5dd4cb-58a6-407a-a93d-a224ee4dcc1d" />
 <img width="936" height="684" alt="Screenshot (582)" src="https://github.com/user-attachments/assets/e01104c8-ff5c-45d3-a9f9-04cfae08e967" />
