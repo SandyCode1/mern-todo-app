@@ -111,7 +111,6 @@ MERN-TODO-APP/
 ## Screenshots
 <img width="1920" height="1080" alt="Screenshot (585)" src="https://github.com/user-attachments/assets/f7b9e1c8-5578-4382-9e02-db018b33a765" />
 <img width="808" height="811" alt="Screenshot (584)" src="https://github.com/user-attachments/assets/80d477ba-e290-4286-983e-9f2015fd38bc" />
-<img width="1920" height="1080" alt="Screenshot (583)" src="https://github.com/user-attachments/assets/9c5dd4cb-58a6-407a-a93d-a224ee4dcc1d" />
 <img width="936" height="684" alt="Screenshot (582)" src="https://github.com/user-attachments/assets/e01104c8-ff5c-45d3-a9f9-04cfae08e967" />
 <img width="1920" height="1080" alt="Screenshot (581)" src="https://github.com/user-attachments/assets/d0896f67-1312-4309-947a-cb9929cd0713" />
 <img width="1920" height="1080" alt="Screenshot (580)" src="https://github.com/user-attachments/assets/5e1d3ee3-f37b-4f65-8969-d1251a33d0d6" />
