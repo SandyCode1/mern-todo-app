@@ -109,9 +109,11 @@ MERN-TODO-APP/
 | DELETE | /todos/:id  | Delete a todo                   |
 
 ## Screenshots
-
+##UI Introduction: Todo App with a single task ("finish project") displayed.
 <img width="1920" height="1080" alt="Screenshot (580)" src="https://github.com/user-attachments/assets/5e1d3ee3-f37b-4f65-8969-d1251a33d0d6" />
+##Add tasks in seconds—type your task and hit 'Add' to save it to your list.
 <img width="1920" height="1080" alt="Screenshot (587)" src="https://github.com/user-attachments/assets/8202224e-bbc3-4747-8733-f5f61437344e" />
+## Tasks are securely saved to the database as soon as you add them.
 <img width="948" height="705" alt="Screenshot (586)" src="https://github.com/user-attachments/assets/b7c84014-5301-48a6-8071-4eabf39090fb" />
 <img width="1920" height="1080" alt="Screenshot (585)" src="https://github.com/user-attachments/assets/f7b9e1c8-5578-4382-9e02-db018b33a765" />
 <img width="808" height="811" alt="Screenshot (584)" src="https://github.com/user-attachments/assets/80d477ba-e290-4286-983e-9f2015fd38bc" />
