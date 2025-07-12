@@ -124,12 +124,11 @@ MERN-TODO-APP/
 <img width="1920" height="1080" alt="Screenshot (581)" src="https://github.com/user-attachments/assets/d0896f67-1312-4309-947a-cb9929cd0713" />
 <img width="936" height="684" alt="Screenshot (582)" src="https://github.com/user-attachments/assets/e01104c8-ff5c-45d3-a9f9-04cfae08e967" />
 
-
-# Live Demo
+## 🚀 Live Demo
 
 You can check out the live version of the frontend here:
 
-[![Live Demo](https://img.shields.io/badge/View-Live-green?style=for-the-badge&logo=vercel)]([https://your-frontend-url.vercel.app](https://mern-to-do-n964tgtn7-nawal-shahids-projects.vercel.app/))
+[![Live Demo](https://img.shields.io/badge/View-Live-%23a855f7?style=for-the-badge&logo=vercel&logoColor=white)](https://mern-to-do-n964tgtn7-nawal-shahids-projects.vercel.app/)
 
 
 ## License
