@@ -2,7 +2,7 @@
 
 A full-stack Todo application built with the MERN stack (MongoDB, Express.js, React, and Node.js) that allows users to create, read, update, and delete todo items.
 
-## 🚀 Live Demo
+## Live Demo
 
 You can check out the live version of the frontend here:
 
