@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Installing frontend dependencies..."
+      - cd todo-frontend
+      - npm install
+  build:
+    commands:
+      - echo "Building React app..."
+      - npm run build
+  post_build:
+    commands:
+      - echo "Build completed. Preparing for S3 deploy..."
+artifacts:
+  base-directory: todo-frontend/build
+  files:
+    - '**/*'

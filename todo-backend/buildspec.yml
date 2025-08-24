@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  parameter-store:
+    MONGO_URI: "/mern/prod/MONGO_URI"
+    JWT_SECRET: "/mern/prod/JWT_SECRET"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Installing backend dependencies..."
+      - cd todo-backend
+      - npm install
+  build:
+    commands:
+      - echo "Build phase for backend (if needed)..."
+  post_build:
+    commands:
+      - echo "Zipping and preparing for deployment..."
+      - cd ..
+      - zip -r todo-backend.zip todo-backend
+artifacts:
+  files:
+    - backend.zip
