@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://mern-todo-backend-env-1.eba-uqvyy85u.ap-south-1.elasticbeanstalk.com',
+  baseURL: 'http://localhost:8000',
 });
 
 export default instance;

@@ -11,14 +11,18 @@ const Todo = () => {
 
   // Fetch Todos
   React.useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const { data } = await axios.get('/todos');
-        setTodos(data.data || []);
-      } catch (error) {
-        console.error('Fetch error:', error);
-      }
-    };
+   const fetchTodos = async () => {
+  try {
+    const { data } = await axios.get('/todos');
+    const todos = (data.data || []).map(t => ({
+      ...t,
+      _id: t._id || t.id,   // fallback if backend sends "id"
+    }));
+    setTodos(todos);
+  } catch (error) {
+    console.error('Fetch error:', error);
+  }
+};
     fetchTodos();
   }, []);
 
@@ -42,7 +46,7 @@ const Todo = () => {
   const deleteTodo = async (id) => {
     try {
       await axios.delete(`/todos/${id}`);
-      setTodos(prev => prev.filter(todo => todo.id !== id));
+      setTodos(prev => prev.filter(todo => todo._id !== id));
     } catch (error) {
       console.error('Delete error:', error);
     }
@@ -56,7 +60,7 @@ const Todo = () => {
       });
       setTodos(prev =>
         prev.map(todo =>
-          todo.id === id ? data.data : todo
+          todo._id === id ? data.data : todo
         )
       );
     } catch (error) {
@@ -66,14 +70,14 @@ const Todo = () => {
 
   // Start editing
   const startEdit = (todo) => {
-    setEditId(todo.id);
+    setEditId(todo._id);
     setEditText(todo.text);
   };
 
   // Save changes
   const saveEdit = async (id) => {
     try {
-      const oldTodo = todos.find(t => t.id === id);
+      const oldTodo = todos.find(t => t._id === id);
       const res = await axios.put(`/todos/${id}`, {
         text: editText,
         completed: oldTodo.completed
@@ -82,7 +86,7 @@ const Todo = () => {
       const updated = res.data.data;
 
       setTodos(prev => prev.map(todo =>
-        todo.id === id ? updated : todo
+        todo._id === id ? updated : todo
       ));
       setEditId(null);
       setEditText('');
@@ -110,23 +114,23 @@ const Todo = () => {
       <ul style={styles.todoList}>
         {todos.map(todo => (
           <li
-            key={todo.id}
+            key={todo._id}
             style={{
               ...styles.todoItem,
               ...(todo.completed && styles.completed),
             }}
           >
-            {editId === todo.id ? (
+            {editId === todo._id ? (
               <div style={{ display: 'flex', width: '100%' }}>
                 <input
                   type="text"
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
                   style={styles.editInput}
-                  onKeyDown={(e) => e.key === 'Enter' && saveEdit(todo.id)}
+                  onKeyDown={(e) => e.key === 'Enter' && saveEdit(todo._id)}
                 />
                 <button
-                  onClick={() => saveEdit(todo.id)}
+                  onClick={() => saveEdit(todo._id)}
                   style={{ ...styles.button, ...styles.saveButton }}
                 >
                   Save
@@ -135,7 +139,7 @@ const Todo = () => {
             ) : (
               <>
                 <span
-                  onClick={() => toggleComplete(todo.id, todo.completed)}
+                  onClick={() => toggleComplete(todo._id, todo.completed)}
                   style={styles.todoText}
                 >
                   {todo.text}
@@ -148,7 +152,7 @@ const Todo = () => {
                     Edit
                   </button>
                   <button
-                    onClick={() => deleteTodo(todo.id)}
+                    onClick={() => deleteTodo(todo._id)}
                     style={{ ...styles.button, ...styles.deleteButton }}
                   >
                     Delete

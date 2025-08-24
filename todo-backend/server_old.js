@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
+
+
 dotenv.config();
 
 const {
@@ -12,26 +14,45 @@ const {
     deleteTodo
 } = require('./controllers/todoController');
 
-// App Config
+
+//App Config
 const app = express();
 const PORT = process.env.PORT || 8000;
-const connectionURL = process.env.MONGO_URI;
+const connectionURL = process.env.MONGO_URI
 
-// Middleware
+
+//MIDDLEWARE
 app.use(express.json());
 app.use(cors());
 
+// Database Connection
+mongoose.connect(connectionURL)
+.then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+})
+
+.catch((error) => {
+    console.error('Database connection error:', error);
+}
+);
+
 // API Endpoints
-app.get("/", (req, res) => {
-  res.send("✅ Backend API is running...");
-});
 
-app.get('/todos', getTodos);
-app.post('/todos', createTodo);
-app.put('/todos/:id', updateTodo);
-app.delete('/todos/:id', deleteTodo);
+// Get todos list
+app.get('/todos', getTodos)
 
-// Database Connection & Server Start
+// Create a new Todo
+app.post('/todos', createTodo)
+
+// Update a Todo
+app.put('/todos/:id', updateTodo)
+
+// Delete a Todo
+app.delete('/todos/:id', deleteTodo)
+
+// Database Connection and Server Start
 mongoose
   .connect(connectionURL, {
     useNewUrlParser: true,
@@ -40,7 +61,7 @@ mongoose
   .then(() => {
     console.log('✅ MongoDB connected');
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`🚀 Server is running on port ${PORT}`);
     });
   })
   .catch((error) => {
