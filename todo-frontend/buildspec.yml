@@ -1,30 +1,35 @@
 version: 0.2
+
 env:
   variables:
     S3_BUCKET: "negi-mern-todo-frontend-demo"
-    CLOUDFRONT_DIST_ID: "E1PF3QW3K4MLZ1"
+    CLOUDFRONT_DIST_ID: "E1PF3QW3K4MLZ1"  # replace with your actual CloudFront ID
 
 phases:
   install:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo Installing dependencies
+      - echo "Moving into frontend folder..."
+      - cd todo-frontend
+      - echo "Upgrading npm to latest version..."
+      - npm install -g npm@latest
+      - echo "Installing dependencies..."
       - npm install
+
   build:
     commands:
-      - echo Building React app
+      - echo "Building project..."
       - npm run build
+
   post_build:
     commands:
-      - echo Deploying to S3
-      # Upload index.html with no-cache
-      - aws s3 cp build/index.html s3://$S3_BUCKET/index.html --cache-control "no-cache, no-store, must-revalidate"
-      # Upload all other files with long cache
-      - aws s3 sync build/ s3://$S3_BUCKET --delete --exclude "index.html" --cache-control "max-age=31536000, public"
-      # Invalidate CloudFront
+      - echo "Deploying build to S3..."
+      - aws s3 cp build/ s3://$S3_BUCKET/ --recursive
+      - echo "Invalidating CloudFront distribution..."
       - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DIST_ID --paths "/*"
+
 artifacts:
   files:
     - '**/*'
-  base-directory: build
+  discard-paths: yes
