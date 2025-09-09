@@ -22,5 +22,9 @@ phases:
       - aws s3 cp build/index.html s3://$S3_BUCKET/index.html --cache-control "no-cache, no-store, must-revalidate"
       # Upload all other files with long cache
       - aws s3 sync build/ s3://$S3_BUCKET --delete --exclude "index.html" --cache-control "max-age=31536000, public"
-      # Invalidate CloudFront so new index.html is served
+      # Invalidate CloudFront
       - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DIST_ID --paths "/*"
+artifacts:
+  files:
+    - '**/*'
+  base-directory: build
