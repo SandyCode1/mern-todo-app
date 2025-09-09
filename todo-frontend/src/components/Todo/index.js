@@ -9,41 +9,37 @@ const Todo = () => {
   const [editId, setEditId] = React.useState(null);
   const [editText, setEditText] = React.useState('');
 
-  // Fetch Todos
   React.useEffect(() => {
-   const fetchTodos = async () => {
-  try {
-    const { data } = await axios.get('/todos');
-    const todos = (data.data || []).map(t => ({
-      ...t,
-      _id: t._id || t.id,   // fallback if backend sends "id"
-    }));
-    setTodos(todos);
-  } catch (error) {
-    console.error('Fetch error:', error);
-  }
-};
+    const fetchTodos = async () => {
+      try {
+        const { data } = await axios.get('/todos');
+        const todos = (data.data || []).map(t => ({
+          ...t,
+          _id: t._id || t.id,
+        }));
+        setTodos(todos);
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
+    };
     fetchTodos();
   }, []);
 
-  // Add Todo
   const addTodo = async () => {
-    if (inputValue.trim()) {
-      try {
-        const { data } = await axios.post('/todos', {
-          text: inputValue,
-          completed: false
-        });
-        setTodos(prev => [...prev, data.data]);
-        setInputValue('');
-      } catch (error) {
-        console.error('Add error:', error.response?.data || error.message);
-      }
+    const text = inputValue.trim();
+    if (!text) return;
+    try {
+      const { data } = await axios.post('/todos', { text, completed: false });
+      const newTodo = { ...data.data, _id: data.data._id || data.data.id };
+      setTodos(prev => [...prev, newTodo]);
+      setInputValue('');
+    } catch (error) {
+      console.error('Add error:', error.response?.data || error.message);
     }
   };
 
-  // Delete Todo
   const deleteTodo = async (id) => {
+    if (!id) return;
     try {
       await axios.delete(`/todos/${id}`);
       setTodos(prev => prev.filter(todo => todo._id !== id));
@@ -52,53 +48,45 @@ const Todo = () => {
     }
   };
 
-  // Toggle Complete
   const toggleComplete = async (id, currentStatus) => {
+    if (!id) return;
     try {
-      const { data } = await axios.put(`/todos/${id}`, {
-        completed: !currentStatus
-      });
+      const { data } = await axios.put(`/todos/${id}`, { completed: !currentStatus });
       setTodos(prev =>
-        prev.map(todo =>
-          todo._id === id ? data.data : todo
-        )
+        prev.map(todo => todo._id === id ? { ...todo, ...data.data } : todo)
       );
     } catch (error) {
       console.error('Toggle error:', error);
     }
   };
 
-  // Start editing
   const startEdit = (todo) => {
+    if (!todo?._id) return;
     setEditId(todo._id);
     setEditText(todo.text);
   };
 
-  // Save changes
   const saveEdit = async (id) => {
+    if (!id) return;
+    const oldTodo = todos.find(t => t._id === id);
+    if (!oldTodo) return;
     try {
-      const oldTodo = todos.find(t => t._id === id);
-      const res = await axios.put(`/todos/${id}`, {
+      const { data } = await axios.put(`/todos/${id}`, {
         text: editText,
         completed: oldTodo.completed
       });
-
-      const updated = res.data.data;
-
-      setTodos(prev => prev.map(todo =>
-        todo._id === id ? updated : todo
-      ));
+      const updated = { ...data.data, _id: data.data._id || data.data.id };
+      setTodos(prev => prev.map(todo => todo._id === id ? updated : todo));
       setEditId(null);
       setEditText('');
     } catch (err) {
-      console.error('Save error:', err);
+      console.error('Save error:', err.response?.data || err.message);
     }
   };
 
   return (
     <div style={styles.appContainer}>
-      <h1 style={styles.header}>Todo App</h1>
-
+      <h1 style={styles.header}>Todo App - v2</h1>
       <div style={styles.inputSection}>
         <input
           type="text"
@@ -167,7 +155,6 @@ const Todo = () => {
   );
 };
 
-// Render
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
