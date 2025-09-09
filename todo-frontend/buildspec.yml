@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     S3_BUCKET: "negi-mern-todo-frontend-demo"
-    CLOUDFRONT_DIST_ID: "E1PF3QW3K4MLZ1"  # replace with your actual CloudFront ID
+    CLOUDFRONT_DIST_ID: "E1PF3QW3K4MLZ1"  # replace with your CloudFront ID
 
 phases:
   install:
@@ -12,8 +12,6 @@ phases:
     commands:
       - echo "Moving into frontend folder..."
       - cd todo-frontend
-      - echo "Upgrading npm to latest version..."
-      - npm install -g npm@latest
       - echo "Installing dependencies..."
       - npm install
 
