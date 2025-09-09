@@ -86,7 +86,7 @@ const Todo = () => {
 
   return (
     <div style={styles.appContainer}>
-      <h1 style={styles.header}>Todo App - v2</h1>
+      <h1 style={styles.header}>Todo App - v1</h1>
       <div style={styles.inputSection}>
         <input
           type="text"
